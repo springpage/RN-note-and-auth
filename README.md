@@ -22,5 +22,5 @@ And compare the code it generate with the code user submit. If the code is true,
 - The same for facebook authentication, my fb App ID is work only for my facebook account because the App is still in development and not live yet.
 Just change the fb App Id with your fb App ID and it will work.
 - Login by email and password works well by just create account and then login.
-- And I made this app in a short time so I didn't spend time to make validation or clean up code yet.
+- And I made this app in a short time so I didn't spend time to add validation or clean up code yet.
 
