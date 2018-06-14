@@ -1,3 +1,5 @@
+## View all my projects at https://springpageportfolio.blogspot.com/
+
 # note-and-auth
 a react native project
 
