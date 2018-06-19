@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 import {
   Container,
@@ -13,24 +13,23 @@ import {
   Text,
   ListItem,
   List
-} from "native-base";
+} from 'native-base';
 
-import styles from "./styles";
+import styles from './styles';
 
 const datas = [
   {
-    route: "LoginByEmail",
-    text: "Login using Email and Password"
+    route: 'LoginByEmail',
+    text: 'Login using Email and Password'
   },
   {
-    route: "LoginWithFacebook",
-    text: "Login with Facebook account"
+    route: 'LoginWithFacebook',
+    text: 'Login with Facebook account'
   },
   {
-    route: "LoginByPhone",
-    text: "Login by your Phone"
-  },
-
+    route: 'LoginByPhone',
+    text: 'Login by your Phone'
+  }
 ];
 
 class Home extends Component {
@@ -50,20 +49,19 @@ class Home extends Component {
         <Content>
           <List
             dataArray={datas}
-            renderRow={data =>
+            renderRow={data => (
               <ListItem
                 button
                 onPress={() => this.props.navigation.navigate(data.route)}
               >
                 <Left>
-                  <Text>
-                    {data.text}
-                  </Text>
+                  <Text>{data.text}</Text>
                 </Left>
                 <Right>
-                  <Icon name="arrow-forward" style={{ color: "#999" }} />
+                  <Icon name="arrow-forward" style={{ color: '#999' }} />
                 </Right>
-              </ListItem>}
+              </ListItem>
+            )}
           />
         </Content>
       </Container>

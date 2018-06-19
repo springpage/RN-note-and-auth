@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import firebase from 'firebase';
 
 import {
@@ -20,30 +20,31 @@ import {
   ListItem,
   Textarea,
   Toast
-} from "native-base";
-import styles from "./styles";
+} from 'native-base';
+import styles from './styles';
 
 class Note extends Component {
-  state={note:'', loginType:''};
-  componentDidMount(){
+  state = { note: '', loginType: '' };
+  componentDidMount() {
     Toast.show({
-      text: "Sign In successfully",
-      duration: 2000,
-    })
-    const {navigation}=this.props;
+      text: 'Sign In successfully',
+      duration: 2000
+    });
+    const { navigation } = this.props;
 
-    let note=navigation.getParam('note_content');
-    let loginType=navigation.getParam('loginType');
-    this.setState({note, loginType});
+    let note = navigation.getParam('note_content');
+    let loginType = navigation.getParam('loginType');
+    this.setState({ note, loginType });
   }
 
-  updateNote(){
+  updateNote() {
     let ref = this.props.navigation.getParam('ref');
-    ref.set(this.state.note)
-    .then(Toast.show({
-      text: "Updated your Note",
-      duration: 2000,
-    }));
+    ref.set(this.state.note).then(
+      Toast.show({
+        text: 'Updated your Note',
+        duration: 2000
+      })
+    );
   }
 
   render() {
@@ -66,8 +67,6 @@ class Note extends Component {
         </Header>
 
         <Content padder>
-
-
           <Separator bordered>
             <Text>Logged In with {this.state.loginType}</Text>
           </Separator>
@@ -84,7 +83,8 @@ class Note extends Component {
           </Form>
           <Button
             onPress={this.updateNote.bind(this)}
-            block style={{ margin: 15}}
+            block
+            style={{ margin: 15 }}
           >
             <Text>Save</Text>
           </Button>

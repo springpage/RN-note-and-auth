@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import firebase from 'firebase';
 
 import {
@@ -18,50 +18,64 @@ import {
   Text,
   Separator,
   ListItem
-} from "native-base";
-import styles from "./styles";
+} from 'native-base';
+import styles from './styles';
 
 class LoginByEmail extends Component {
-  state = { signUpEmail: '', signUpPassword: '', status: '', signInEmail: '', signInPassword:''};
+  state = {
+    signUpEmail: '',
+    signUpPassword: '',
+    status: '',
+    signInEmail: '',
+    signInPassword: ''
+  };
 
   onSignUpPress() {
     const { signUpEmail, signUpPassword } = this.state;
 
-    this.setState({ status: 'Signing Up'});
+    this.setState({ status: 'Signing Up' });
 
-    firebase.auth().createUserWithEmailAndPassword(signUpEmail, signUpPassword)
-      .then(user=> this.onSignUpSuccess(user))
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(signUpEmail, signUpPassword)
+      .then(user => this.onSignUpSuccess(user))
       .catch(err => console.log(err));
   }
 
-  onSignUpSuccess=(user)=>{
-
+  onSignUpSuccess = user => {
     console.log(user.user.uid);
-    firebase.database().ref(`/users/${user.user.uid}/note`)
+    firebase
+      .database()
+      .ref(`/users/${user.user.uid}/note`)
       .set('')
-      .then(this.setState({ status: 'Created Account successfully.'}))
+      .then(this.setState({ status: 'Created Account successfully.' }))
       .catch(err => console.log(err));
-  }
+  };
 
-  onSignInPress(){
+  onSignInPress() {
     const { signInEmail, signInPassword } = this.state;
-    this.setState({ status: 'Signing In'});
-    firebase.auth().signInWithEmailAndPassword(signInEmail, signInPassword)
-      .then(user=> this.onSignInSuccess(user))
+    this.setState({ status: 'Signing In' });
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(signInEmail, signInPassword)
+      .then(user => this.onSignInSuccess(user));
   }
 
-  onSignInSuccess=(user)=>{
+  onSignInSuccess = user => {
     let note_content;
     const ref = firebase.database().ref(`/users/${user.user.uid}/note`);
     ref.on('value', snapshot => {
-        ref.off();
-        note_content=snapshot.val();
-        this.setState({ status: ''});
-        let loginType='email: '+this.state.signInEmail;
-        this.props.navigation.navigate('Note',{note_content:note_content, ref, loginType});
+      ref.off();
+      note_content = snapshot.val();
+      this.setState({ status: '' });
+      let loginType = 'email: ' + this.state.signInEmail;
+      this.props.navigation.navigate('Note', {
+        note_content: note_content,
+        ref,
+        loginType
       });
-      
-  }
+    });
+  };
   render() {
     return (
       <Container style={styles.container}>
@@ -93,7 +107,9 @@ class LoginByEmail extends Component {
               <Label>Password</Label>
               <Input
                 value={this.state.signUpPassword}
-                onChangeText={signUpPassword => this.setState({ signUpPassword })}
+                onChangeText={signUpPassword =>
+                  this.setState({ signUpPassword })
+                }
                 secureTextEntry
               />
             </Item>
@@ -101,7 +117,8 @@ class LoginByEmail extends Component {
 
           <Button
             onPress={this.onSignUpPress.bind(this)}
-            block style={{ margin: 15}}
+            block
+            style={{ margin: 15 }}
           >
             <Text>Sign Up</Text>
           </Button>
@@ -120,7 +137,9 @@ class LoginByEmail extends Component {
               <Label>Password</Label>
               <Input
                 value={this.state.signInPassword}
-                onChangeText={signInPassword => this.setState({ signInPassword })}
+                onChangeText={signInPassword =>
+                  this.setState({ signInPassword })
+                }
                 secureTextEntry
               />
             </Item>
@@ -128,7 +147,8 @@ class LoginByEmail extends Component {
 
           <Button
             onPress={this.onSignInPress.bind(this)}
-            block style={{ margin: 15}}
+            block
+            style={{ margin: 15 }}
           >
             <Text>Sign In</Text>
           </Button>
